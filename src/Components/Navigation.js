@@ -1,7 +1,8 @@
 import { Container, Navbar, Form, FormControl, Button, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import '../Styles/Navigation.css';
 
-const Navigation = () => {
+function Navigation() {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -10,7 +11,13 @@ const Navigation = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Form className="d-flex" >
                         <FormControl type="search" placeholder="Search" className="mr-2" aria-label="Search" />
-                        <Button variant="outline-success" >Search</Button>
+                        <Button
+                            variant="outline-success" 
+                            as={Link}
+                            to='/search'
+                        >
+                            Search
+                        </Button>
                     </Form>
                     <Nav className="right-nav">
                         <Nav.Link href="/search">Login</Nav.Link>

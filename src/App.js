@@ -1,4 +1,3 @@
-import './App.css';
 import Navigation from './Components/Navigation.js';
 import { Switch, Route } from 'react-router-dom';
 import Hustle from './Components/Hustle';

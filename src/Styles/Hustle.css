@@ -1,0 +1,25 @@
+.carousel {
+  z-index: 1;
+}
+
+img {
+  height: 100vh;
+  object-fit: cover;
+}
+
+.Title {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 40%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 2;
+}
+
+.Title h1 {
+  font-size: 72px;
+  font-family: serif;
+}
