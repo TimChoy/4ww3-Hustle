@@ -1,0 +1,11 @@
+.h2 {
+    font-size: max(3vw, 24px);
+    font-family: serif;
+    color: black;
+}
+  
+.Input {
+    background-color:rgba(128, 128, 128, 0.8);
+    padding: 2em;
+    border-radius: 1em;
+}
