@@ -1,4 +1,3 @@
-import '../App.css'
 import React from 'react';
 import googlemaps from '../Assets/true_map.png';
 import Card from 'react-bootstrap/Card'
