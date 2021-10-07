@@ -13,8 +13,8 @@ function Hustle() {
               <Form.Control size="lg" placeholder="Search" />
             </Col>
           </Row>
-          <Row className="justify-content-md-center">
-            <Col md>
+          <Row className="justify-content-between">
+            <Col className="overrideWidth">
               <DropdownButton size="lg" title="Rating"> {/* Potential to add props to this button title */}
                 <Dropdown.Item>5 Stars</Dropdown.Item>
                 <Dropdown.Item>4+ Stars</Dropdown.Item>
@@ -23,7 +23,7 @@ function Hustle() {
                 <Dropdown.Item>1+ Stars</Dropdown.Item>
               </DropdownButton>
             </Col>
-            <Col className="Submit" md="auto">
+            <Col sm="auto" className="overrideWidth">
               <Button
                 size="lg"
                 variant="primary"

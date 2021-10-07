@@ -3,14 +3,14 @@ import '../Styles/Navigation.css';
 
 function Navigation() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
       <Container>
         <Navbar.Brand href="/">Hustle</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="right-nav">
             <Nav.Link href="/contribute">Contribute</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/login">Register</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

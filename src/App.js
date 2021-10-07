@@ -1,4 +1,5 @@
 import Navigation from './Components/Navigation.js';
+import Footer from './Components/Footer.js';
 import { Switch, Route } from 'react-router-dom';
 import Hustle from './Components/Hustle';
 import Search from './Components/Search';
@@ -15,6 +16,7 @@ function App() {
         <Route path='/contribute' component={Contribute} />
         <Route path='/login' component={Login} />
       </Switch>
+      <Footer/>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Button, FloatingLabel, Form, Row, Col } from 'react-bootstrap';
+import { Button, Form, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../Styles/Hustle.css';
 import '../Styles/Login.css';
@@ -10,7 +10,7 @@ function Login() {
                 <div>
                     <h2>Register</h2>
                 </div>
-                <Form>
+                <Form> {/* Form for registration */}
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="registerFName">
                             <Form.Label>First Name</Form.Label>
@@ -37,7 +37,7 @@ function Login() {
                         <Form.Check type="checkbox" label="I agree to the terms and conditions" />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="submit" as={Link} to='/'>
                         Register
                     </Button>
                 </Form>
