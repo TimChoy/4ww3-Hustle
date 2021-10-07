@@ -1,0 +1,27 @@
+.Hustle {
+  background-image: url("../Assets/background.jpg");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.Title {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1;
+  padding-top: 10%
+}
+
+.Title > .Box {
+  background-color:rgba(128, 128, 128, 0.8);
+  padding: 2em;
+  border-radius: 1em;
+}
+
+.Title .Box h1 {
+  font-size: max(4vw, 32px);
+  font-family: serif;
+  color: black;
+}
