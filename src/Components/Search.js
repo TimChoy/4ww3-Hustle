@@ -1,10 +1,10 @@
 import React from 'react';
 import googlemaps from '../Assets/true_map.png';
-import Card from 'react-bootstrap/Card'
-import {Button} from 'react-bootstrap'
-import CardGroup from 'react-bootstrap/CardGroup'
+import Card from 'react-bootstrap/Card';
+import {Button} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import CardGroup from 'react-bootstrap/CardGroup';
 import '../Styles/Search.css';
-
 
 function Search() {
   
@@ -83,11 +83,17 @@ function Search() {
                           Distance: 2.7km<br/>
                           Rating: 3.9/5.0<br/>
                           <br/>
-                            <Button variant="dark">Select</Button>
-                          </Card.Text>
-                      </Card.Body>
+                          <Button 
+                          variant="primary"
+                          type="submit"
+                          as={Link}
+                          to='/item'
+                          > Select
+                          </Button>
+                        </Card.Text>
+                    </Card.Body>
                   </Card>
-                </CardGroup>           
+              </CardGroup>           
         </div> 
     );
 }
