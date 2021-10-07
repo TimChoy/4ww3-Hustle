@@ -1,25 +1,27 @@
-.carousel {
-  z-index: 1;
-}
-
-img {
+.Hustle {
+  background-image: url("../Assets/background.jpg");
   height: 100vh;
-  object-fit: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .Title {
   display: flex;
-  justify-content: center;
-  position: absolute;
-  top: 40%;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  z-index: 2;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1;
+  padding-top: 10%
 }
 
-.Title h1 {
-  font-size: 72px;
+.Title > .Box {
+  background-color:rgba(128, 128, 128, 0.8);
+  padding: 2em;
+  border-radius: 1em;
+}
+
+.Title .Box h1 {
+  font-size: max(4vw, 32px);
   font-family: serif;
+  color: black;
 }
