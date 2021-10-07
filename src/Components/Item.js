@@ -10,10 +10,10 @@ function Item() {
         <div>
             <Container>
                 <Row className = "row">
-                    <Col className = "col" xs={1} md={1}>
+                    <Col className = "col" xs={3} md={5}>
                         <Image src={gym_item} className = "img" />
                     </Col>
-                    <Col className = "col" xs={1} md={1}>
+                    <Col className = "col" xs={3} md={5}>
                         <Image src={gym_mapitem} className = "img" />
                     </Col>
                 </Row>
