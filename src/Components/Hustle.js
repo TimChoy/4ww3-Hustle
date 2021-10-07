@@ -1,4 +1,5 @@
 import { Form, Row, Col, DropdownButton, Dropdown, Button } from 'react-bootstrap';
+import { FaSearch } from 'react-icons/fa'
 import { Link } from 'react-router-dom';
 import '../Styles/Hustle.css';
 
@@ -31,7 +32,7 @@ function Hustle() {
                 as={Link}
                 to='/search'
               >
-                Submit
+                <FaSearch />
               </Button>
             </Col>
           </Row>

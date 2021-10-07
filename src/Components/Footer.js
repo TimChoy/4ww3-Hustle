@@ -2,7 +2,7 @@ import { Container, Navbar } from "react-bootstrap";
 
 function Footer() {
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" fixed="bottom">
             <Container>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-between">
