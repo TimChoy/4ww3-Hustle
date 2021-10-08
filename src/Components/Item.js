@@ -1,9 +1,7 @@
-import React from 'react';
-import Card from 'react-bootstrap/Card'
-import {Row, Col, Container } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image';
-import gym_item from '../Assets/gym_item.jpeg';
-import gym_mapitem from '../Assets/gym_mapitem.jpeg';
+import { Card, Col, Container, Image, Row } from 'react-bootstrap';
+
+import gym_item from '../Assets/gym_item.avif';
+import gym_mapitem from '../Assets/gym_mapitem.avif';
 import '../Styles/Item.css';
 
 function Item() {
