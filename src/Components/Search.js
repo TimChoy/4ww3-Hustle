@@ -18,14 +18,14 @@ function Search() {
                 <Card as={Col} className="card">
                     <Card.Header className="d-flex justify-content-between">
                         <div>Fitness Centre</div>
-                        <div>10.5km</div>
+                        <div>Rating: 4.6/5.0</div>
                     </Card.Header>
                     <Card.Body>
                         <Card.Title>Snap Fitness</Card.Title>
                         <Card.Text>
                             <p>
                                 Address: 8130 Sheppard Avenue East Suite 108 and 109 <br />
-                                Rating: 4.6/5.0
+                                Distance: 10.5km
                             </p>
                             <Button variant="primary" onClick={handleOnClick}>
                                 Reviews
