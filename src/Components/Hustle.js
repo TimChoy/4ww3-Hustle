@@ -1,4 +1,5 @@
-import { Form, Row, Col, DropdownButton, Dropdown, Button } from 'react-bootstrap';
+import { Button, Col, Dropdown, DropdownButton, Form, Row } from 'react-bootstrap';
+import { FaSearch } from 'react-icons/fa'
 import { Link } from 'react-router-dom';
 import '../Styles/Hustle.css';
 
@@ -13,17 +14,17 @@ function Hustle() {
               <Form.Control size="lg" placeholder="Search" />
             </Col>
           </Row>
-          <Row className="justify-content-md-center">
-            <Col md>
+          <Row className="justify-content-between">
+            <Col className="overrideWidth">
               <DropdownButton size="lg" title="Rating"> {/* Potential to add props to this button title */}
                 <Dropdown.Item>5 Stars</Dropdown.Item>
-                <Dropdown.Item>4+ Stars</Dropdown.Item>
-                <Dropdown.Item>3+ Stars</Dropdown.Item>
-                <Dropdown.Item>2+ Stars</Dropdown.Item>
-                <Dropdown.Item>1+ Stars</Dropdown.Item>
+                <Dropdown.Item>4 Stars</Dropdown.Item>
+                <Dropdown.Item>3 Stars</Dropdown.Item>
+                <Dropdown.Item>2 Stars</Dropdown.Item>
+                <Dropdown.Item>1 Star</Dropdown.Item>
               </DropdownButton>
             </Col>
-            <Col className="Submit" md="auto">
+            <Col sm="auto" className="overrideWidth">
               <Button
                 size="lg"
                 variant="primary"
@@ -31,7 +32,7 @@ function Hustle() {
                 as={Link}
                 to='/search'
               >
-                Submit
+                <FaSearch />
               </Button>
             </Col>
           </Row>
