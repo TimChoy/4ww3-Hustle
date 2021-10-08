@@ -7,7 +7,7 @@ import '../Styles/Hustle.css';
 
 function Search() {
     const history = useHistory();
-    const handleOnClick = () => history.push('/');
+    const handleOnClick = () => history.push('/item');
 
     return (
         <div className="Hustle Search">

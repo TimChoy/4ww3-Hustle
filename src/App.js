@@ -24,6 +24,7 @@ function App() {
         <Route path='/login' component={FixedFooter} />
         <Route path='/contribute' component={FixedFooter} />
         <Route path='/search' component={Footer} />
+        <Route path='/item' component={Footer} />
       </Switch>
     </div>
   );
