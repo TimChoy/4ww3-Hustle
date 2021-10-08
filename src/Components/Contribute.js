@@ -1,9 +1,12 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../Styles/Hustle.css';
 import '../Styles/Login.css';
 
 function Contribute() {
+    const history = useHistory();
+    const handleOnClick = () => history.push('/');
+
     return (
         <div className="Hustle">
             <div className="Input">
@@ -32,7 +35,7 @@ function Contribute() {
                             <Form.Label>Images</Form.Label>
                             <Form.Control type="file" />
                         </Form.Group>
-                        <Button variant="primary" type="submit" as={Link} to='/'>
+                        <Button variant="primary" type="submit" onClick={handleOnClick}>
                             Submit
                         </Button>
                     </Form>
