@@ -1,9 +1,12 @@
 import { Button, Col, Dropdown, DropdownButton, Form, Row } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa'
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../Styles/Hustle.css';
 
 function Hustle() {
+  const history = useHistory();
+  const handleOnClick = () => history.push('/search');
+
   return (
     <div className="Hustle">
       <div className="Box">
@@ -29,8 +32,7 @@ function Hustle() {
                 size="lg"
                 variant="primary"
                 type="submit"
-                as={Link}
-                to='/search'
+                onClick={handleOnClick}
               >
                 <FaSearch />
               </Button>
