@@ -1,8 +1,8 @@
 import { Container, Navbar } from "react-bootstrap";
 
-function Footer() {
+function FixedFooter() {
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" fixed="bottom">
             <Container>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-between">
@@ -18,4 +18,4 @@ function Footer() {
     );
 }
 
-export default Footer;
+export default FixedFooter;

@@ -5,6 +5,7 @@ import Hustle from './Components/Hustle';
 import Search from './Components/Search';
 import Contribute from './Components/Contribute';
 import Login from './Components/Login';
+import FixedFooter from './Components/FixedFooter.js';
 
 function App() {
   return (
@@ -16,7 +17,12 @@ function App() {
         <Route path='/contribute' component={Contribute} />
         <Route path='/login' component={Login} />
       </Switch>
-      <Footer/>
+      <Switch>
+        <Route exact path='/' component={FixedFooter} />
+        <Route path='/login' component={FixedFooter} />
+        <Route path='/contribute' component={FixedFooter} />
+        <Route path='/search' component={Footer} />
+      </Switch>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Container, Navbar, Nav } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { FaDumbbell } from 'react-icons/fa'
 import '../Styles/Navigation.css';
 

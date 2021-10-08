@@ -1,9 +1,13 @@
-import { Button, Form, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+
 import '../Styles/Hustle.css';
 import '../Styles/Login.css';
 
 function Login() {
+    const history = useHistory();
+    const handleOnClick = () => history.push('/');
+
     return (
         <div className="Hustle">
             <div className="Input"> {/* TODO: Use Formik for validation */}
@@ -37,7 +41,7 @@ function Login() {
                         <Form.Check type="checkbox" label="I agree to the terms and conditions" />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" as={Link} to='/'>
+                    <Button variant="primary" type="submit" onClick={handleOnClick}>
                         Register
                     </Button>
                 </Form>
