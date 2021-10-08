@@ -1,9 +1,9 @@
 import googlemaps from '../Assets/true_map.png';
 import { Button, Card, Col, Image, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
-
 import '../Styles/Search.css';
 import '../Styles/Hustle.css';
+
 
 function Search() {
     const history = useHistory();
