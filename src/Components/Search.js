@@ -10,7 +10,7 @@ function Search() {
     const handleOnClick = () => history.push('/item');
 
     return (
-        <div className="Hustle Search">
+        <div className="Search">
             <div className="map-div">
                 <Image src={googlemaps} alt="google maps of searched area" fluid/>
             </div>

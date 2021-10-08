@@ -7,18 +7,21 @@ import Contribute from './Components/Contribute';
 import Login from './Components/Login';
 import Item from './Components/Item';
 import FixedFooter from './Components/FixedFooter.js';
+import ScrollToTop from './Components/ScrollToTop.js';
 
 function App() {
   return (
     <div className="App">
       <Navigation />
-      <Switch>
-        <Route exact path='/' component={Hustle} />
-        <Route path='/search' component={Search} />
-        <Route path='/contribute' component={Contribute} />
-        <Route path='/login' component={Login} />
-        <Route path='/item' component={Item} />
-      </Switch>
+      <ScrollToTop>
+        <Switch>
+          <Route exact path='/' component={Hustle} />
+          <Route path='/search' component={Search} />
+          <Route path='/contribute' component={Contribute} />
+          <Route path='/login' component={Login} />
+          <Route path='/item' component={Item} />
+        </Switch>
+      </ScrollToTop>
       <Switch>
         <Route exact path='/' component={FixedFooter} />
         <Route path='/login' component={FixedFooter} />
