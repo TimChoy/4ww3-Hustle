@@ -12,7 +12,7 @@ function Item() {
                 <Image src={gym_item} fluid />
             </div>
             <Container>
-                <Row className="justify-content-between">
+                <Row>
                     <Col className="Location" xs={12} md={6}>
                         <h1>Fit4Less</h1>
                         <hr />
