@@ -1,4 +1,4 @@
-import googlemaps from '../Assets/true_map.png';
+import googlemaps from '../Assets/true_map.avif';
 import { Button, Card, Col, Image, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 import '../Styles/Search.css';
