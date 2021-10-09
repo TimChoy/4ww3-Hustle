@@ -10,7 +10,7 @@ function Contribute() {
 
     return (
         <div className="Contribute">
-            <div className="Input">
+            <div className="Input Contribute-form">
                 <div>
                     <h2>Contribute a Gym!</h2>
                     <Form>

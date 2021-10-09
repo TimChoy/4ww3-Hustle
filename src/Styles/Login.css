@@ -12,7 +12,6 @@
 
 
 /* Change background image height for landscape */
-
 @media screen and (orientation: landscape) and (min-device-width: 375px) and (max-device-width: 667px) {
     .Login {
         height: 160vh !important;
@@ -35,6 +34,13 @@
     background-color: rgba(255, 255, 255, 0.9);
     padding: 2em;
     border-radius: 1em;
+}
+
+/* Add margin for portrait phones */
+@media screen and (orientation: portrait) and (max-width:667px) {
+    .Input {
+      margin-top: 4em;
+    }
 }
 
 .Fixed-bottom {
