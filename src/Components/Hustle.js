@@ -11,7 +11,7 @@ function Hustle() {
   return (
     <div className="Hustle">
       <div className="Box">
-        <h1>Find Your Best Workout</h1>
+        <h1>Let's Hustle</h1>
         <Form className="w-20">
           <Row className="mb-2">
             <Col fluid>
