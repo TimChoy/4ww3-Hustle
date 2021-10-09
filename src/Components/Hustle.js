@@ -33,6 +33,7 @@ function Hustle() {
                 size="lg"
                 variant="primary"
                 type="submit"
+                aria-label="search button"
                 onClick={handleOnClick}
               >
                 <FaSearch />
