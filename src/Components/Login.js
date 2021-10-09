@@ -1,6 +1,6 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-
+import FooterNav from './Footer'
 import '../Styles/Hustle.css';
 import '../Styles/Login.css';
 
@@ -9,12 +9,12 @@ function Login() {
     const handleOnClick = () => history.push('/');
 
     return (
-        <div className="Hustle">
-            <div className="Input"> {/* TODO: Use Formik for validation */}
+        <div className="Login" >
+            <div className="Input" > {/* TODO: Use Formik for validation */}
                 <div>
-                    <h2>Register</h2>
+                    <h2> Register </h2>
                 </div>
-                <Form> {/* Form for registration */}
+                <Form> { /* Form for registration */}
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="registerFName">
                             <Form.Label>First Name</Form.Label>
@@ -26,7 +26,7 @@ function Login() {
                             <Form.Control placeholder="Last Name" />
                         </Form.Group>
                     </Row>
-                    
+
                     <Form.Group className="mb-3" controlId="registerEmail">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" placeholder="Email" />
@@ -45,6 +45,9 @@ function Login() {
                         Register
                     </Button>
                 </Form>
+            </div>
+            <div className="Fixed-bottom">
+                <FooterNav />
             </div>
         </div>
     );

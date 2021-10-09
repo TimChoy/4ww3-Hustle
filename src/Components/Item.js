@@ -2,6 +2,7 @@ import { Card, Col, Container, Image, Row } from 'react-bootstrap';
 
 import gym_item from '../Assets/fit4less.avif';
 import gym_mapitem from '../Assets/gym_mapitem.avif';
+import FooterNav from './Footer';
 import '../Styles/Item.css';
 import '../Styles/Search.css';
 
@@ -9,7 +10,7 @@ function Item() {
     return (
         <div className="Item">
             <div className="d-flex justify-content-center pb-4">
-                <Image src={gym_item} fluid />
+                <Image src={gym_item} alt="header image" fluid />
             </div>
             <Container>
                 <Row>
@@ -17,11 +18,11 @@ function Item() {
                         <h1>Fit4Less</h1>
                         <hr />
                         <p>
-                            Average Rating: 3.9/5.0<br/>
+                            Average Rating: 3.9/5.0<br />
                             Location: 3434 Lawrence Avenue East, Scarborough, ON
                         </p>
                         <div className="map">
-                            <Image src={gym_mapitem} fluid/>
+                            <Image src={gym_mapitem} alt="map" fluid />
                         </div>
                     </Col>
                     <Col className="Reviews">
@@ -96,7 +97,7 @@ function Item() {
                                                 when they’ll open?? And they didn’t even send a
                                                 warning. I’ve made several of my friends join the
                                                 gym and all I get in return is the rigid answers.
-                                                Policies are good but there must be room for 
+                                                Policies are good but there must be room for
                                                 exceptions.
                                             </p>
                                         </Card.Text>
@@ -107,6 +108,9 @@ function Item() {
                     </Col>
                 </Row>
             </Container>
+            <div className="Fixed-bottom-search">
+                <FooterNav />
+            </div>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-.Login {
+.Contribute {
     background-image: url("../Assets/background.avif");
     height: 100vh;
     background-position: center;
@@ -14,33 +14,8 @@
 /* Change background image height for landscape */
 
 @media screen and (orientation: landscape) and (min-device-width: 375px) and (max-device-width: 667px) {
-    .Login {
-        height: 160vh !important;
+    .Contribute {
+        height: 170vh !important;
         justify-content: space-between;
     }
-
-    .Fixed-bottom {
-        position: relative !important;
-        width: 100% !important;
-    }
 }
-
-.h2 {
-    font-size: max(3vw, 24px);
-    font-family: serif;
-    color: black;
-}
-
-.Input {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 2em;
-    border-radius: 1em;
-}
-
-.Fixed-bottom {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1080;
-}   

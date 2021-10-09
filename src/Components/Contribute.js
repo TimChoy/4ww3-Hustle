@@ -1,6 +1,7 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import '../Styles/Hustle.css';
+import FooterNav from './Footer'
+import '../Styles/Contribute.css';
 import '../Styles/Login.css';
 
 function Contribute() {
@@ -8,7 +9,7 @@ function Contribute() {
     const handleOnClick = () => history.push('/');
 
     return (
-        <div className="Hustle">
+        <div className="Contribute">
             <div className="Input">
                 <div>
                     <h2>Contribute a Gym!</h2>
@@ -40,6 +41,9 @@ function Contribute() {
                         </Button>
                     </Form>
                 </div>
+            </div>
+            <div className="Fixed-bottom">
+                <FooterNav />
             </div>
         </div>
     );

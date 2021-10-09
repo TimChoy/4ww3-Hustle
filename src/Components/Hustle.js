@@ -1,6 +1,7 @@
 import { Button, Col, Dropdown, DropdownButton, Form, Row } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom';
+import FooterNav from './Footer';
 import '../Styles/Hustle.css';
 
 function Hustle() {
@@ -39,6 +40,9 @@ function Hustle() {
             </Col>
           </Row>
         </Form>
+      </div>
+      <div className="Fixed-bottom-hustle">
+        <FooterNav />
       </div>
     </div>
   );

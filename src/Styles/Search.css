@@ -3,3 +3,8 @@
     padding-top: 0% !important;
     height: max-content !important;
 }
+
+.Fixed-bottom-search {
+    position: relative;
+    width: 100%;
+}

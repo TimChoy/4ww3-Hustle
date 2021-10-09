@@ -1,9 +1,8 @@
 import googlemaps from '../Assets/true_map.avif';
 import { Button, Card, Col, Image, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
+import FooterNav from './Footer';
 import '../Styles/Search.css';
-import '../Styles/Hustle.css';
-
 
 function Search() {
     const history = useHistory();
@@ -88,6 +87,9 @@ function Search() {
                     </Card.Body>
                 </Card>
             </Row>
+            <div className="Fixed-bottom-search">
+                <FooterNav />
+            </div>
         </div>
     );
 }
