@@ -1,1 +1,0 @@
-Our website has is being built with Javascript, using React-bootstrap as our framework. The images and reviews hardcoded into the results and item(object) page come from real images of a specific gym and their respective set of reviews on google maps. 
