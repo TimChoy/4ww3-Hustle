@@ -1,8 +1,8 @@
-import googlemaps from '../Assets/true_map.png';
-import { Button, Card, Col, Image, Row } from 'react-bootstrap'
+import { Button, Card, Col, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 import '../Styles/Search.css';
 import '../Styles/Hustle.css';
+import GoogleMaps from '../Components/GoogleMaps';
 
 
 function Search() {
@@ -11,9 +11,9 @@ function Search() {
 
     return (
         <div className="Hustle Search">
-            <div className="map-div">
-                <Image src={googlemaps} alt="google maps of searched area" fluid/>
-            </div>
+            <h1 className="map-div">
+            <GoogleMaps fluid />
+            </h1>
             <Row className="g-0 mb-4" xs={1} md={2}>
                 <Card as={Col} className="card">
                     <Card.Header className="d-flex justify-content-between">
