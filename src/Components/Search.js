@@ -11,9 +11,9 @@ function Search() {
 
     return (
         <div className="Hustle Search">
-            <h1 className="map-div">
+            <div className="map-div">
             <GoogleMaps fluid />
-            </h1>
+            </div>
             <Row className="g-0 mb-4" xs={1} md={2}>
                 <Card as={Col} className="card">
                     <Card.Header className="d-flex justify-content-between">

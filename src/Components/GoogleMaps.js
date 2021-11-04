@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import env from "react-dotenv";
+
+const containerStyle = {
+  position: 'relative',
+  width: '100%',
+  height:'60vh',
+  }
 
 export class MapContainer extends Component {
+  /* Describes the initial state of the map when it's rendered */
     state = {
       showingInfoWindow: false,
       activeMarker: {},
@@ -22,7 +30,7 @@ export class MapContainer extends Component {
     onMapClicked = (props) => {
       if (this.state.showingInfoWindow) {
         this.setState({
-          showingInfoWindow: false,
+          showingInfoWindow: true,
           activeMarker: null
         })
       }
@@ -40,13 +48,32 @@ export class MapContainer extends Component {
                 lat: this.state.mapCenter.lat,
                 lng: this.state.mapCenter.lng
             }}
+            containerStyle = {containerStyle}
             >
-        <Marker 
+          <Marker 
             position = {{
-                at: this.state.mapCenter.lat,
+                lat: this.state.mapCenter.lat,
                 lng: this.state.mapCenter.lng  
             }}
             />
+          <Marker 
+            position = {{
+                lat: 43.75957,
+                lng: -79.22624
+            }}
+          />
+          <Marker 
+            position = {{
+                lat: 43.77714113246414, 
+                lng: -79.24931225786676
+            }}
+          />
+          <Marker 
+            position = {{
+                lat: 43.80145785954532,
+                lng:  -79.19827247757445
+            }}
+          />
           <InfoWindow
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}>
@@ -60,5 +87,5 @@ export class MapContainer extends Component {
   }
 
   export default GoogleApiWrapper({
-    apiKey: (process.env.REACT_APP_API_KEY)
+    apiKey: ('AIzaSyDSO1X25Ssg1-_7GhYNoqMANh4wfbTOEds')
   })(MapContainer)
