@@ -1,5 +1,5 @@
 .Hustle {
-  background-image: url("../Assets/background.jpg");
+  background-image: url("../Assets/background.avif");
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
@@ -17,6 +17,20 @@
   border-radius: 1em;
 }
 
+/* Increase width for just desktops */
+@media (min-width:1025px) {
+  .Box {
+    width: 40vw;
+  }
+}
+
+/* Add margin for portrait phones */
+@media screen and (orientation: portrait) and (max-width:667px) {
+  .Box {
+    margin-top: 4em;
+  }
+}
+
 .Box h1 {
   font-size: max(4vw, 32px);
   font-family: serif;
@@ -28,3 +42,11 @@
 .overrideWidth {
   width: auto !important;
 }
+
+.Fixed-bottom-hustle {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1080;
+}   

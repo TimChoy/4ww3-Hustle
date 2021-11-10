@@ -6,13 +6,13 @@ function Navigation() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
       <Container>
-        <Navbar.Brand href="/">
+        <Navbar.Brand href="/" aria-label="Homepage">
           <FaDumbbell size={30} style={{ fill: 'white' }} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
-            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/">Hustle</Nav.Link>
             <Nav.Link href="/contribute">Contribute a Gym</Nav.Link>
           </Nav>
           <Nav className="right-nav">

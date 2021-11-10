@@ -15,3 +15,8 @@
         width: 84% !important;
     }
 }
+
+.Fixed-bottom-search {
+    position: relative;
+    width: 100%;
+}

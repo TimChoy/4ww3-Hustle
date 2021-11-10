@@ -1,16 +1,16 @@
 import { Button, Card, Col, Row } from 'react-bootstrap'
+import googlemaps from '../Assets/true_map.avif';
 import { useHistory } from 'react-router-dom';
+import FooterNav from './Footer';
 import '../Styles/Search.css';
-import '../Styles/Hustle.css';
 import GoogleMaps from '../Components/GoogleMaps';
-
 
 function Search() {
     const history = useHistory();
-    const handleOnClick = () => history.push('/');
+    const handleOnClick = () => history.push('/item');
 
     return (
-        <div className="Hustle Search">
+        <div className="Search">
             <div className="map-div">
             <GoogleMaps fluid />
             </div>
@@ -88,6 +88,9 @@ function Search() {
                     </Card.Body>
                 </Card>
             </Row>
+            <div className="Fixed-bottom-search">
+                <FooterNav />
+            </div>
         </div>
     );
 }

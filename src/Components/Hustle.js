@@ -1,13 +1,17 @@
 import { Button, Col, Dropdown, DropdownButton, Form, Row } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa'
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import FooterNav from './Footer';
 import '../Styles/Hustle.css';
 
 function Hustle() {
+  const history = useHistory();
+  const handleOnClick = () => history.push('/search');
+
   return (
     <div className="Hustle">
       <div className="Box">
-        <h1>Find Your Best Workout</h1>
+        <h1>Let's Hustle</h1>
         <Form className="w-20">
           <Row className="mb-2">
             <Col fluid>
@@ -29,14 +33,17 @@ function Hustle() {
                 size="lg"
                 variant="primary"
                 type="submit"
-                as={Link}
-                to='/search'
+                aria-label="search button"
+                onClick={handleOnClick}
               >
                 <FaSearch />
               </Button>
             </Col>
           </Row>
         </Form>
+      </div>
+      <div className="Fixed-bottom-hustle">
+        <FooterNav />
       </div>
     </div>
   );
