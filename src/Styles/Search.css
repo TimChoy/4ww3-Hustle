@@ -4,6 +4,18 @@
     height: max-content !important;
 }
 
+.map-div {
+    width: 100%;
+    height: 60vh;
+    align-self: center;
+}
+
+@media (min-width: 1640px) {
+    .map-div {
+        width: 84% !important;
+    }
+}
+
 .Fixed-bottom-search {
     position: relative;
     width: 100%;
