@@ -1,8 +1,8 @@
 import { Button, Card, Col, Row } from 'react-bootstrap'
-import googlemaps from '../Assets/true_map.avif';
 import { useHistory } from 'react-router-dom';
 import FooterNav from './Footer';
 import '../Styles/Search.css';
+import '../Styles/Hustle.css';
 import GoogleMaps from '../Components/GoogleMaps';
 
 function Search() {
@@ -10,9 +10,9 @@ function Search() {
     const handleOnClick = () => history.push('/item');
 
     return (
-        <div className="Search">
+        <div className="Hustle Search">
             <div className="map-div">
-            <GoogleMaps fluid />
+                <GoogleMaps />
             </div>
             <Row className="g-0 mb-4" xs={1} md={2}>
                 <Card as={Col} className="card">
