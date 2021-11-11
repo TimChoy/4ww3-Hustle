@@ -1,17 +1,18 @@
-import googlemaps from '../Assets/true_map.avif';
-import { Button, Card, Col, Image, Row } from 'react-bootstrap'
+import { Button, Card, Col, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 import FooterNav from './Footer';
 import '../Styles/Search.css';
+import '../Styles/Hustle.css';
+import GoogleMaps from '../Components/GoogleMaps';
 
 function Search() {
     const history = useHistory();
     const handleOnClick = () => history.push('/item');
 
     return (
-        <div className="Search">
+        <div className="Hustle Search">
             <div className="map-div">
-                <Image src={googlemaps} alt="google maps of searched area" fluid/>
+                <GoogleMaps />
             </div>
             <Row className="g-0 mb-4" xs={1} md={2}>
                 <Card as={Col} className="card">
