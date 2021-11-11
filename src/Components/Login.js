@@ -1,4 +1,5 @@
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import React, { useState } from 'react'
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -15,10 +16,28 @@ const schema = Yup.object().shape({
 });
 
 function Login() {
+  // state variables for modal
+  const [show, setShow] = useState(false);
+  const [fname, setFName] = useState('');
+  const [lname, setLName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const history = useHistory();
-  const handleOnSubmit = (input) => { {/* Handles form submission, once validation is complete */}
-    console.log(input);
+
+  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false);
     history.push('/');
+  }
+
+  // currently sends data to a modal to display to the user what was entered on the form
+  const handleOnSubmit = (input) => {
+    console.log(input);
+    setFName(input.firstName);
+    setLName(input.lastName);
+    setEmail(input.email);
+    setPassword(input.password);
+    handleShow();
   }
 
   return (
@@ -137,6 +156,22 @@ function Login() {
       <div className="Fixed-bottom">
         <FooterNav />
       </div>
+      <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Form Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              First Name: {fname} <br/>
+              Last Name: {lname} <br/>
+              Email: {email} <br/>
+              Password: {password}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+      </Modal>
     </div>
   );
 }
