@@ -120,7 +120,7 @@ function Login() {
               <Form.Group className="mb-3" controlId="registerPass">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="password"
                   name="password"
                   value={values.password}
                   onChange={handleChange}
