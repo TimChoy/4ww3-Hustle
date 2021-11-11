@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
