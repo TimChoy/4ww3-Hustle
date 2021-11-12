@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card, Col, Container, Image, Row } from 'react-bootstrap';
 import gym_item from '../Assets/fit4less.avif';
 import Map from './Map';
@@ -7,14 +7,14 @@ import '../Styles/Item.css';
 import '../Styles/Search.css';
 
 function Item({ mapProps }) {
-  const [locations] = useState([
+  const locations = [
     { lat: 43.760184874119524, lng: -79.22848806953778, name: 'Fit4Less' },
-  ]);
-  useEffect(() => { }, []);
+  ];
+  
   const addMarkers = links => map => {
     links.forEach((loc) => {
       let position = new window.google.maps.LatLng(loc.lat, loc.lng);
-      const marker = new window.google.maps.Marker({
+      new window.google.maps.Marker({
         map,
         position: position,
       });

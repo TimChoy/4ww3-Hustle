@@ -8,20 +8,26 @@ import '../Styles/Hustle.css';
 import '../Styles/Login.css';
 
 const schema = Yup.object().shape({
-  firstName: Yup.string().required('Required'),
-  lastName: Yup.string().required('Required'),
+  firstName: Yup.string()
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed in this field')
+    .required('Required'),
+  lastName: Yup.string()
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed in this field')
+    .required('Required'),
   email: Yup.string().email('Invalid Email').required('Required'),
   password: Yup.string().required('Required'),
   terms: Yup.bool().required().oneOf([true], 'Terms must be accepted'),
 });
 
 function Login() {
-  // state variables for modal
+  // state variables for form input
+  const [userInfo, setUserInfo] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
   const [show, setShow] = useState(false);
-  const [fname, setFName] = useState('');
-  const [lname, setLName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const history = useHistory();
 
   const handleShow = () => setShow(true);
@@ -33,19 +39,19 @@ function Login() {
   // currently sends data to a modal to display to the user what was entered on the form
   const handleOnSubmit = (input) => {
     console.log(input);
-    setFName(input.firstName);
-    setLName(input.lastName);
-    setEmail(input.email);
-    setPassword(input.password);
+    setUserInfo({
+      firstName: input.fname,
+      lastName: input.lname,
+      email: input.email,
+      password: input.password,
+    })
     handleShow();
   }
 
   return (
     <div className="Login">
       <div className="Input">
-        <div>
-          <h2> Register </h2>
-        </div>
+        <h2> Register </h2>
         <Formik
           validationSchema={schema}
           onSubmit={handleOnSubmit}
@@ -157,20 +163,20 @@ function Login() {
         <FooterNav />
       </div>
       <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Form Details</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              First Name: {fname} <br/>
-              Last Name: {lname} <br/>
-              Email: {email} <br/>
-              Password: {password}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-            </Modal.Footer>
+        <Modal.Header closeButton>
+          <Modal.Title>Form Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          First Name: {userInfo.firstName} <br />
+          Last Name: {userInfo.lastName} <br />
+          Email: {userInfo.email} <br />
+          Password: {userInfo.password}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

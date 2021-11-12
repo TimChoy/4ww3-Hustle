@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, Col, Dropdown, DropdownButton, Form, Row } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa'
 import { BiCurrentLocation } from 'react-icons/bi'
@@ -10,13 +10,21 @@ import '../Styles/Hustle.css';
 
 function Hustle() {
   const { setData } = useContext(Context);
+  const [onReady, setReady] = useState(false);
   const history = useHistory();
   const handleOnClick = () => history.push('/search');
   const geolocation = useGeolocation();
 
+  useEffect(() => {
+    if (!!geolocation && onReady) {
+      console.log(geolocation);
+      history.push('/search');
+    }
+  }, [geolocation, history, onReady]);
+
   const currentLocation = () => {
-    setData(geolocation)
-    history.push('/search')
+    setData(geolocation);
+    setReady(true);
   }
 
   const [rating, setRating] = useState('Rating');

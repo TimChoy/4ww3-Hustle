@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 import FooterNav from './Footer';
@@ -12,23 +12,29 @@ function Search({ mapProps }) {
   const history = useHistory();
   const handleOnClick = () => history.push('/item');
 
-  let latitude = (typeof data !== 'undefined') ? data.latitude : 43.777702;
-  let longitude = (typeof data !== 'undefined') ? data.longitude : -79.233238;
-
-  const [locations] = useState([
+  let locations = [
     { lat: 43.760184874119524, lng: -79.22848806953778, name: 'Fit4Less' },
     { lat: 43.75957, lng: -79.22624, name: 'Goodlife Fitness: Cedarbrae Mall' },
     { lat: 43.77714113246414, lng: -79.24931225786676, name: 'World Gym' },
     { lat: 43.80145785954532, lng: -79.19827247757445, name: 'Snap Fitness' },
-    { lat: latitude, lng: longitude, name: 'Your Location' },
-  ]);
+  ];
 
-  useEffect(() => { }, []);
+  const latitude = (data && data.latitude) ? data.latitude : 43.777702;
+  const longitude = (data && data.longitude) ? data.longitude : -79.233238;
+
+  // If there is location data of the user, then add it to the list of locations
+  if (data) {
+    const newLoc = { lat: latitude, lng: longitude, name: 'Your Location' };
+    locations = [...locations, newLoc];
+  }
 
   const addMarkers = links => map => {
+    // Creates a single infowindow, will display information about various markers
+    let infowindow = new window.google.maps.InfoWindow({});
     links.forEach((loc, index) => {
       let position = new window.google.maps.LatLng(loc.lat, loc.lng);
-      if (index !== links.length - 1) {
+      // Different marker separating locations and user's location
+      if (loc.name !== 'Your Location') {
         const marker = new window.google.maps.Marker({
           map,
           position: position,
@@ -41,28 +47,24 @@ function Search({ mapProps }) {
           '<h6>' + loc.name + '</h6><hr/>' +
           '<a href=\'./Item\'> Click here for more information </a>' +
           '</div>';
-        const infowindow = new window.google.maps.InfoWindow({
-          content: infoWindowContent,
-        });
         marker.addListener('click', () => {
+          infowindow.setContent(infoWindowContent);
           infowindow.open(map, marker);
-        })
+        });
       } else {
         const marker = new window.google.maps.Marker({
           map,
           position: position,
-        })
+        });
         const infoWindowContent =
           '<div>' +
           '<h6> Your Location </h6><hr/>' +
           '<p> Latitude: ' + loc.lat + '<br/>Longitude: ' + loc.lng + '</p>' +
           '</div>';
-        const infowindow = new window.google.maps.InfoWindow({
-          content: infoWindowContent,
-        });
         marker.addListener('click', () => {
+          infowindow.setContent(infoWindowContent);
           infowindow.open(map, marker);
-        })
+        });
       }
     })
   }
