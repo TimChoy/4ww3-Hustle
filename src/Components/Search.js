@@ -44,7 +44,9 @@ function Search({ mapProps }) {
         });
         const infoWindowContent =
           '<div>' +
-          '<h6>' + loc.name + '</h6><hr/>' +
+          '<span style="font-weight: bold;">' + loc.name + '</span><div style="line-height: 50%;"><br/></div>' +
+          '<span> Latitude: ' + loc.lat + '</span><br/>' +
+          '<span> Longitude: ' + loc.lng + '</span><br/>' +
           '<a href=\'./Item\'> Click here for more information </a>' +
           '</div>';
         marker.addListener('click', () => {
@@ -57,10 +59,11 @@ function Search({ mapProps }) {
           position: position,
         });
         const infoWindowContent =
-          '<div>' +
-          '<h6> Your Location </h6><hr/>' +
-          '<p> Latitude: ' + loc.lat + '<br/>Longitude: ' + loc.lng + '</p>' +
-          '</div>';
+        '<div>' +
+        '<span style="font-weight: bold;"> Your Location </span><div style="line-height: 50%;"><br/></div>' +
+        '<span> Latitude: ' + loc.lat + '</span><br/>' +
+        '<span> Longitude: ' + loc.lng + '</span><br/>' +
+        '</div>';
         marker.addListener('click', () => {
           infowindow.setContent(infoWindowContent);
           infowindow.open(map, marker);
