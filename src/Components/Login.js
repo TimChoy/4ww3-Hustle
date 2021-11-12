@@ -7,6 +7,7 @@ import FooterNav from './Footer'
 import '../Styles/Hustle.css';
 import '../Styles/Login.css';
 
+// Validation schema for form
 const schema = Yup.object().shape({
   firstName: Yup.string()
     .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed in this field')
@@ -27,6 +28,8 @@ function Login() {
     email: '',
     password: '',
   });
+
+  // Show state variable for modal (temporary for assignment 2)
   const [show, setShow] = useState(false);
   const history = useHistory();
 

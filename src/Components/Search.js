@@ -19,6 +19,7 @@ function Search({ mapProps }) {
     { lat: 43.80145785954532, lng: -79.19827247757445, name: 'Snap Fitness' },
   ];
 
+  // Takes user location if given, or fixed location
   const latitude = (data && data.latitude) ? data.latitude : 43.777702;
   const longitude = (data && data.longitude) ? data.longitude : -79.233238;
 

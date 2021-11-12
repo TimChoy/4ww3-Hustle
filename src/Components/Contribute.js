@@ -7,6 +7,7 @@ import FooterNav from './Footer'
 import '../Styles/Contribute.css';
 import '../Styles/Login.css';
 
+// Validation schema
 const schema = Yup.object().shape({
   gymName: Yup.string().required('Required'),
   lat: Yup.number()
@@ -29,6 +30,7 @@ function Contribute() {
     lng: NaN,
     file: '',
   });
+  // Show state variable for modal (only purpose currently for assignment 2)
   const [show, setShow] = useState(false);
   const history = useHistory();
 

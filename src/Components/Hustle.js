@@ -13,6 +13,8 @@ function Hustle() {
   const [onReady, setReady] = useState(false);
   const history = useHistory();
   const handleOnClick = () => history.push('/search');
+
+  // Contains the geolocation information of the user
   const geolocation = useGeolocation();
 
   useEffect(() => {

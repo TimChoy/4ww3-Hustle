@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
+// Basic React Hooks Google Maps template 
 export const Map = ({ options, onMount, className }) => {
   const props = { ref: useRef(), className };
 
