@@ -25,6 +25,10 @@
     .Contribute-form {
       margin-top: 2em !important;
     }
+
+    .mobile-override {
+        position: relative !important;
+    }
 }
 
 input::-webkit-outer-spin-button,
@@ -35,4 +39,8 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+.overrideWidth {
+    width: auto !important;
 }

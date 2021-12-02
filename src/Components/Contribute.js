@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { BiCurrentLocation } from 'react-icons/bi'
+import useGeolocation from 'react-hook-geolocation';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import FooterNav from './Footer'
@@ -22,6 +24,7 @@ const schema = Yup.object().shape({
 });
 
 function Contribute() {
+  const geolocation = useGeolocation();
   // state variables for form input
   const [gymInfo, setGymInfo] = useState({
     gymName: '',
@@ -71,6 +74,7 @@ function Contribute() {
               values,
               touched,
               errors,
+              setFieldValue,
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="gymName">
@@ -146,15 +150,34 @@ function Contribute() {
                     {errors.file}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
+                <Row className="justify-content-between">
+                  <Col className="overrideWidth">
+                    <Button
+                      variant="primary"
+                      type="button"
+                      onClick={() => {
+                        setFieldValue('lat', geolocation.latitude)
+                        setFieldValue('lng', geolocation.longitude)
+                      }}
+                    >
+                      <BiCurrentLocation/>
+                    </Button>
+                  </Col>
+                  <Col sm="auto" className="overrideWidth">
+                    <Button
+                      variant="primary"
+                      type="submit"
+                    >
+                      Submit
+                    </Button>
+                  </Col>
+                </Row>
               </Form>
             )}
           </Formik>
         </div>
       </div>
-      <div className="Fixed-bottom">
+      <div className="Fixed-bottom mobile-override">
         <FooterNav />
       </div>
       <Modal show={show} onHide={handleClose}>
