@@ -15,11 +15,13 @@ const schema = Yup.object().shape({
   lat: Yup.number()
     .min(-90, 'Minimum latitude is -90')
     .max(90, 'Maximum latitude is 90')
-    .required('Please enter a valid number'),
+    .required('Please enter a valid number')
+    .typeError('Please enter a valid number'),
   lng: Yup.number()
     .min(-180, 'Minimum longitude is -180')
     .max(80, 'Maximum longitude is 80')
-    .required('Please enter a valid number'),
+    .required('Please enter a valid number')
+    .typeError('Please enter a valid number'),
   file: Yup.mixed().required('A file is required'),
 });
 
@@ -66,6 +68,9 @@ function Contribute() {
             initialValues={{
               gymName: '',
               description: '',
+              lat: NaN,
+              lng: NaN,
+              file: '',
             }}
           >
             {({
@@ -75,6 +80,7 @@ function Contribute() {
               touched,
               errors,
               setFieldValue,
+              setFieldTouched,
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="gymName">
@@ -155,9 +161,11 @@ function Contribute() {
                     <Button
                       variant="primary"
                       type="button"
-                      onClick={() => {
-                        setFieldValue('lat', geolocation.latitude)
-                        setFieldValue('lng', geolocation.longitude)
+                      onClick={() => { // There is some issue with validation taking previous values
+                        setFieldTouched('lat', true, false);
+                        setFieldTouched('lng', true, false);
+                        setFieldValue('lng', geolocation.longitude, true);
+                        setFieldValue('lat', geolocation.latitude, true);
                       }}
                     >
                       <BiCurrentLocation/>
