@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 import FooterNav from './Footer'
 import '../Styles/Hustle.css';
 import '../Styles/Register.css';
@@ -14,18 +15,19 @@ const schema = Yup.object().shape({
 });
 
 function Login() {
-  // state variables for form input
-  const [userLogin, setUserLogin] = useState({
-    email: '',
-    password: '',
-  });
-
   // currently sends data to a modal to display to the user what was entered on the form
   const handleOnSubmit = (input) => {
-    console.log(input);
-    setUserLogin({
-      email: input.email,
-      password: input.password,
+    // console.log(input);
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    };
+    // TODO Clean up code in case of problem
+    let payload = input;
+    axios.post(process.env.REACT_APP_SERVER + '/users', payload, axiosConfig).then(resp => {
+      console.log(resp.data)
     })
   }
 
