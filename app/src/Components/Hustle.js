@@ -23,11 +23,20 @@ function Hustle() {
       console.log(geolocation);
       history.push('/search');
     }
+  }, [geolocation, history, onReady]);
 
-    axios.get(process.env.REACT_APP_SERVER).then(resp => {
+  useEffect(() => {
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    };
+    let payload = {params: 1}
+    axios.post(process.env.REACT_APP_SERVER + '/users', payload, axiosConfig).then(resp => {
       console.log(resp.data);
     });
-  }, [geolocation, history, onReady]);
+  }, []);
 
   const currentLocation = () => {
     setData(geolocation);
