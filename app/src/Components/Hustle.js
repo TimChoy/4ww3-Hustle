@@ -24,7 +24,7 @@ function Hustle() {
       history.push('/search');
     }
 
-    axios.get(process.env.REACT_APP_SERVER + '?test=test').then(resp => {
+    axios.get(process.env.REACT_APP_SERVER).then(resp => {
       console.log(resp.data);
     });
   }, [geolocation, history, onReady]);
