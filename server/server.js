@@ -11,7 +11,7 @@ app.use(cors());
 app.get("/", function (req, res) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-    res.send('Server');
+    res.send(JSON.stringify({params: req.query.test}));
 });
 
 app.listen(port, hostname, function() {
