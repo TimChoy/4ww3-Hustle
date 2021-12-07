@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import { BiCurrentLocation } from 'react-icons/bi'
 import useGeolocation from 'react-hook-geolocation';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import FooterNav from './Footer'
 import '../Styles/Contribute.css';
-import '../Styles/Login.css';
+import '../Styles/Register.css';
 
 // Validation schema
 const schema = Yup.object().shape({
@@ -35,15 +34,6 @@ function Contribute() {
     lng: NaN,
     file: '',
   });
-  // Show state variable for modal (only purpose currently for assignment 2)
-  const [show, setShow] = useState(false);
-  const history = useHistory();
-
-  const handleShow = () => setShow(true);
-  const handleClose = () => {
-    setShow(false);
-    history.push('/');
-  }
 
   const handleOnSubmit = (input) => {
     console.log(input);
@@ -54,7 +44,6 @@ function Contribute() {
       lng: input.lng,
       file: input.file,
     })
-    handleShow();
   }
 
   return (
@@ -188,23 +177,6 @@ function Contribute() {
       <div className="Fixed-bottom mobile-override">
         <FooterNav />
       </div>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Form Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Gym Name: {gymInfo.gymName} <br />
-          Description: {gymInfo.description} <br />
-          Latitude: {gymInfo.lat} <br />
-          Longitude: {gymInfo.lng} <br />
-          Attachments: {gymInfo.file}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 }

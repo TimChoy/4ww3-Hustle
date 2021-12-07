@@ -1,0 +1,54 @@
+.Register {
+    background-image: url("../Assets/background.avif");
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 10%;
+}
+
+
+/* Change background image height for landscape */
+@media screen and (orientation: landscape) and (min-device-width: 375px) and (max-device-width: 667px) {
+    .Register {
+        height: 160vh !important;
+        justify-content: space-between;
+    }
+
+    .Fixed-bottom {
+        position: relative !important;
+        width: 100% !important;
+    }
+}
+
+.h2 {
+    font-size: max(3vw, 24px);
+    font-family: serif;
+    color: black;
+}
+
+.Input {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2em;
+    border-radius: 1em;
+}
+
+/* Add margin for portrait phones */
+@media screen and (orientation: portrait) and (max-width:667px) {
+    .Input {
+      margin-top: 0.5em;
+      border-radius: 0 !important;
+      height: 100vh;
+    }
+}
+
+.Fixed-bottom {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1080;
+}   
