@@ -8,7 +8,7 @@ const port = process.env.PORT;
 const hostname = process.env.HOSTNAME;
 app.use(cors());
 
-app.get("/", function (req, res) {
+app.get("/api", function (req, res) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.send(JSON.stringify({params: req.query.test}));
