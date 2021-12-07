@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Button, Col, Dropdown, DropdownButton, Form, Row } from 'react-bootstrap';
-import { FaSearch } from 'react-icons/fa'
-import { BiCurrentLocation } from 'react-icons/bi'
+import { FaSearch } from 'react-icons/fa';
+import { BiCurrentLocation } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 import useGeolocation from 'react-hook-geolocation';
+import axios from 'axios';
 import FooterNav from './Footer';
 import Context from '../context';
 import '../Styles/Hustle.css';
@@ -22,6 +23,10 @@ function Hustle() {
       console.log(geolocation);
       history.push('/search');
     }
+
+    axios.get(process.env.REACT_APP_SERVER).then(resp => {
+      console.log(resp.data);
+    });
   }, [geolocation, history, onReady]);
 
   const currentLocation = () => {
