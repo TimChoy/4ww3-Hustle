@@ -193,7 +193,8 @@ exports.avgRating = async function (gymID) {
 // listRatings gets the list of ratings of a given gym
 // returns an array of review objects, else returns null if errors
 exports.listRatings = async function (gymID) {
-    let sql = `SELECT * FROM Reviews WHERE GymID=${gymID};`;
+    let sql = `SELECT FirstName, LastName, Rating, Review FROM Reviews ` +
+        `LEFT JOIN Users ON Reviews.UserID = Users.UserID WHERE GymID=${gymID};`;
     const result = await __query(async connection => {
         return new Promise((resolve, reject) => {
             connection.query(sql, (err, ratings) => {
@@ -203,7 +204,7 @@ exports.listRatings = async function (gymID) {
                 resolve(ratings);
             });
         }).then((res) => {
-            return res;
+            return JSON.parse(JSON.stringify(res));;
         }).catch(() => {
             return null;
         });
