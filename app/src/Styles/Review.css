@@ -1,2 +1,46 @@
+.Review {
+    background-image: url("../Assets/background.avif");
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 10%;
+}
 
 
+/* Change background image height for landscape */
+
+@media screen and (orientation: landscape) and (min-device-width: 375px) and (max-device-width: 667px) {
+    .Review {
+        height: 170vh !important;
+        justify-content: space-between;
+    }
+}
+
+/* Add margin for portrait phones */
+@media screen and (orientation: portrait) and (max-width:667px) {
+    .Review-form {
+      margin-top: 2em !important;
+    }
+
+    .mobile-override {
+        position: relative !important;
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.overrideWidth {
+    width: auto !important;
+}

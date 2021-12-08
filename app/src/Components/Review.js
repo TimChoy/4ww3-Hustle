@@ -5,43 +5,44 @@ import useGeolocation from 'react-hook-geolocation';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import FooterNav from './Footer'
-import '../Styles/Contribute.css';
+import '../Styles/Review.css';
 import '../Styles/Register.css';
 
 // Validation schema
 const schema = Yup.object().shape({
-  gymName: Yup.string().required('Required'),
+  gym: Yup.string().required('Please choose a gym.'),
+  rating: Yup.string().required('Please rate the gym.'),
   
 });
 
 function Review() {
-  const geolocation = useGeolocation();
   // state variables for form input
   const [gymInfo, setGymInfo] = useState({
-    gymName: '',
+    gym: '',
+    rating: '',
     description: '',
   });
 
   const handleOnSubmit = (input) => {
     console.log(input);
     setGymInfo({
-      gymName: input.gymName,
+      gym: input.gym,
+      rating: input.rating,
       comments: input.description,
     })
   }
 
-  const [rating, setRating] = useState('Rating');
+  const geolocation = useGeolocation();
 
   return (
-    <div className="Contribute">
-      <div className="Input Contribute-form">
+    <div className="Review">
+      <div className="Input Review-form">
         <div>
           <h2>Add a Review!</h2>
           <Formik
             validationSchema={schema}
             onSubmit={handleOnSubmit}
             initialValues={{
-              gymName: '',
               comments: '',
             }}
           >
@@ -55,19 +56,29 @@ function Review() {
               setFieldTouched,
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="gymName">
-                  <Form.Label>Gym Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="gymName"
-                    value={values.gymName}
+                <Form.Group className="mb-3" >
+                  <select
+                    name="gym"
+                    value={values.gym}
                     onChange={handleChange}
-                    isValid={touched.gymName && !errors.gymName}
-                    isInvalid={!!errors.gymName}
-                    placeholder="Gym Name"
-                  />
+                    isValid={touched.gym && !errors.gym}
+                    isInvalid={!!errors.gym}
+                    style={{ display: 'block' }}
+                  >
+                    <option value="" label="Select a Gym" />
+                    <option value="Goodlife Fitness" label="Goodlife Fitness" />
+                    <option value="Snap Fitness" label="Snap Fitness" />
+                    <option value="World Gym" label="World Gym" />
+                    <option value="Fit4Less" label="Fit4Less" />
+                  </select>
+                  <Form.Control
+                      value={values.gym}
+                      onChange={handleChange}
+                      isValid={touched.gym && !errors.gym}
+                      isInvalid={!!errors.gym}
+                    />
                   <Form.Control.Feedback type="invalid">
-                    {errors.gymName}
+                      {errors.gym}
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="gymDesc">
@@ -82,15 +93,30 @@ function Review() {
                 </Form.Group>
                 <Row className="justify-content-between">
                 <Col className="overrideWidth">
-                    <Form.Group className ="mb-3" controlId="ratebtn" >
-                            <DropdownButton size="lg" title={rating}> {/* Potential to add props to this button title */}
-                                <Dropdown.Item onClick={() => setRating('5 Stars')}>5 Stars</Dropdown.Item>
-                                <Dropdown.Item onClick={() => setRating('4 Stars')}>4 Stars</Dropdown.Item>
-                                <Dropdown.Item onClick={() => setRating('3 Stars')}>3 Stars</Dropdown.Item>
-                                <Dropdown.Item onClick={() => setRating('2 Stars')}>2 Stars</Dropdown.Item>
-                                <Dropdown.Item onClick={() => setRating('1 Star')}>1 Star</Dropdown.Item>
-                            </DropdownButton>
-                    </Form.Group>
+                <select
+                    name="rating"
+                    value={values.rating}
+                    onChange={handleChange}
+                    isValid={touched.rating && !errors.rating}
+                    isInvalid={!!errors.rating}
+                    style={{ display: 'block' }}
+                  >
+                    <option value="" label="Rating" />
+                    <option value="1" label="1" />
+                    <option value="2" label="2" />
+                    <option value="3" label="3" />
+                    <option value="4" label="4" />
+                    <option value="5" label="5" />
+                  </select>
+                  <Form.Control
+                      value={values.rating}
+                      onChange={handleChange}
+                      isValid={touched.rating && !errors.rating}
+                      isInvalid={!!errors.rating}
+                    />
+                  <Form.Control.Feedback type="invalid">
+                      {errors.rating}
+                  </Form.Control.Feedback>
                  </Col>
                   <Col sm="auto" className="overrideWidth">
                     <Button
