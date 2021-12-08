@@ -13,7 +13,6 @@ function Hustle() {
   const { setData } = useContext(Context);
   const [onReady, setReady] = useState(false);
   const history = useHistory();
-  const handleOnClick = () => history.push('/search');
 
   // Contains the geolocation information of the user
   const geolocation = useGeolocation();
@@ -25,25 +24,69 @@ function Hustle() {
     }
   }, [geolocation, history, onReady]);
 
-  useEffect(() => {
+  const [rating, setRating] = useState('Rating');
+  const [search, setSearch] = useState('');
+
+  const callDB = async (location) => {
     let axiosConfig = {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       }
     };
-    let payload = {params: 1}
-    axios.post(process.env.REACT_APP_SERVER + '/users', payload, axiosConfig).then(resp => {
-      console.log(resp.data);
-    });
-  }, []);
+    let payload = {
+      lat: location ? geolocation.latitude : null,
+      lng: location ? geolocation.longitude : null
+    };
+    let gymList = [];
+    let promise = new Promise((resolve, reject) => {
+      axios.post(process.env.REACT_APP_SERVER + '/gyms', payload, axiosConfig).then(resp => {
+        gymList = resp.data;
+        if (search !== "") {
+          // Filter by searchbox
+          gymList = gymList.filter(gym => gym.GymName.startsWith(search))
+        }
 
-  const currentLocation = () => {
-    setData(geolocation);
-    setReady(true);
+        let ratingVal = parseInt(rating.charAt(0))
+        // Add rating to gyms
+        let promises = [];
+        for (const [i, gym] of gymList.entries()) {
+          promises.push(new Promise((resolve, reject) => {
+            let payload = { gymID: gym.GymID };
+            axios.post(process.env.REACT_APP_SERVER + '/reviews/avg', payload, axiosConfig).then(resp => {
+              let gymRating = resp.data[0]['AVG(Rating)'];
+              gymList[i] = Object.assign(gym, { Rating: gymRating });
+              resolve();
+            }).catch(error => reject());
+          }));
+        }
+        resolve(Promise.all(promises).then(() => {
+          // Filter out ratings if rating is selected
+          if (!isNaN(ratingVal)) {
+            gymList = gymList.filter(gym => gym.Rating >= ratingVal);
+          }
+          return gymList;
+        }));
+      }).catch(error => {
+        console.log('Unauthorized')
+        reject(null);
+      });
+    })
+    const res = await promise;
+    return res;
   }
 
-  const [rating, setRating] = useState('Rating');
+  const handleOnClick = async () => {
+    let gymList = await callDB(false)
+    setData([null, gymList]);
+    history.push('/search');
+  };
+
+  const currentLocation = async () => {
+    let gymList = await callDB(true)
+    setData([geolocation, gymList]);
+    history.push('/search');
+  }
 
   return (
     <div className="Hustle">
@@ -52,7 +95,12 @@ function Hustle() {
         <Form className="w-20">
           <Row className="mb-2">
             <Col fluid>
-              <Form.Control size="lg" placeholder="Search" />
+              <Form.Control
+                type="text"
+                size="lg"
+                placeholder="Search"
+                onChange={e => setSearch(e.target.value)}
+              />
             </Col>
           </Row>
           <Row className="justify-content-between">
@@ -66,20 +114,20 @@ function Hustle() {
               </DropdownButton>
             </Col>
             <Col sm="auto" className="overrideWidth">
-              <Button 
+              <Button
                 size="lg"
                 variant="primary"
                 type="button"
                 aria-label="current location"
                 onClick={currentLocation}
-                style={{marginRight: 1 + 'em'}}
+                style={{ marginRight: 1 + 'em' }}
               >
                 <BiCurrentLocation />
               </Button>
               <Button
                 size="lg"
                 variant="primary"
-                type="submit"
+                type="button"
                 aria-label="search button"
                 onClick={handleOnClick}
               >

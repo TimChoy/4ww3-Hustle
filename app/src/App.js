@@ -13,10 +13,11 @@ import Context from './context';
 
 function App() {
   const [data, setData] = useState();
-  const [isLoggedIn, setLoggedIn] = useState();
+  const [credentials, setCredentials] = useState();
+  const [reviews, setReviews] = useState();
 
   return (
-    <Context.Provider value={{ data, setData, isLoggedIn, setLoggedIn }}>
+    <Context.Provider value={{ data, setData, credentials, setCredentials, reviews, setReviews }}>
       <BrowserRouter>
         <Navigation />
         <ScrollToTop>

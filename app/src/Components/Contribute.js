@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { BiCurrentLocation } from 'react-icons/bi'
 import useGeolocation from 'react-hook-geolocation';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import FooterNav from './Footer'
+import FooterNav from './Footer';
+import Context from '../context';
 import '../Styles/Contribute.css';
 import '../Styles/Register.css';
 
@@ -25,6 +26,9 @@ const schema = Yup.object().shape({
 });
 
 function Contribute() {
+  const { credentials } = useContext(Context);
+  console.log(credentials);
+
   const geolocation = useGeolocation();
   // state variables for form input
   const [gymInfo, setGymInfo] = useState({

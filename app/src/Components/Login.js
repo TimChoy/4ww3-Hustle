@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
 import FooterNav from './Footer'
+import Context from '../context';
 import '../Styles/Hustle.css';
 import '../Styles/Register.css';
 import '../Styles/Login.css';
@@ -15,20 +17,22 @@ const schema = Yup.object().shape({
 });
 
 function Login() {
+  const { setCredentials } = useContext(Context);
+  const history = useHistory();
   // currently sends data to a modal to display to the user what was entered on the form
   const handleOnSubmit = (input) => {
-    // console.log(input);
     let axiosConfig = {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       }
     };
-    // TODO Clean up code in case of problem
     let payload = input;
-    axios.post(process.env.REACT_APP_SERVER + '/users', payload, axiosConfig).then(resp => {
+    axios.post(process.env.REACT_APP_SERVER + '/users/auth', payload, axiosConfig).then(resp => {
       console.log(resp.data)
-    })
+      setCredentials(resp.data);
+      history.push('/');
+    }).catch(error => console.log('Unauthorized'));
   }
 
   return (

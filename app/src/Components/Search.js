@@ -4,27 +4,25 @@ import { useHistory } from 'react-router-dom';
 import FooterNav from './Footer';
 import Context from '../context';
 import '../Styles/Search.css';
-import '../Styles/Hustle.css';
 import Map from './Map';
+import axios from 'axios';
 
 function Search({ mapProps }) {
   const { data } = useContext(Context);
+  const { setReviews } = useContext(Context);
   const history = useHistory();
-  const handleOnClick = () => history.push('/item');
 
-  let locations = [
-    { lat: 43.760184874119524, lng: -79.22848806953778, name: 'Fit4Less' },
-    { lat: 43.75957, lng: -79.22624, name: 'Goodlife Fitness: Cedarbrae Mall' },
-    { lat: 43.77714113246414, lng: -79.24931225786676, name: 'World Gym' },
-    { lat: 43.80145785954532, lng: -79.19827247757445, name: 'Snap Fitness' },
-  ];
+  let locations = [];
+  data[1].forEach(gym => {
+    locations.push({ lat: gym.Latitude, lng: gym.Longitude, name: gym.GymName })
+  })
 
   // Takes user location if given, or fixed location
-  const latitude = (data && data.latitude) ? data.latitude : 43.777702;
-  const longitude = (data && data.longitude) ? data.longitude : -79.233238;
+  const latitude = (data[0] && data[0].latitude) ? data[0].latitude : 43.777702;
+  const longitude = (data[0] && data[0].longitude) ? data[0].longitude : -79.233238;
 
   // If there is location data of the user, then add it to the list of locations
-  if (data) {
+  if (data[0]) {
     const newLoc = { lat: latitude, lng: longitude, name: 'Your Location' };
     locations = [...locations, newLoc];
   }
@@ -60,11 +58,11 @@ function Search({ mapProps }) {
           position: position,
         });
         const infoWindowContent =
-        '<div>' +
-        '<span style="font-weight: bold;"> Your Location </span><div style="line-height: 50%;"><br/></div>' +
-        '<span> Latitude: ' + loc.lat + '</span><br/>' +
-        '<span> Longitude: ' + loc.lng + '</span><br/>' +
-        '</div>';
+          '<div>' +
+          '<span style="font-weight: bold;"> Your Location </span><div style="line-height: 50%;"><br/></div>' +
+          '<span> Latitude: ' + loc.lat + '</span><br/>' +
+          '<span> Longitude: ' + loc.lng + '</span><br/>' +
+          '</div>';
         marker.addListener('click', () => {
           infowindow.setContent(infoWindowContent);
           infowindow.open(map, marker);
@@ -78,88 +76,102 @@ function Search({ mapProps }) {
     onMount: addMarkers(locations)
   };
 
+  const handleOnClick = (gym) => {
+    // Axios call to pull reviews from database
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    };
+    let payload = {gymID: gym.GymID};
+    console.log(payload);
+    axios.post(process.env.REACT_APP_SERVER + '/reviews', payload, axiosConfig).then(resp => {
+      let reviews = resp.data;
+      setReviews([gym, reviews]);
+      history.push('/item')
+    }).catch(error => console.log('Unauthorized'));
+  };
+
+  const renderCard = (gym) => {
+    if (!gym.Distance) {
+      return (
+        <Card as={Col} className='card'>
+          <Card.Header className='d-flex justify-content-between'>
+            <div>{gym.GymName}</div>
+            <div>Rating: {gym.Rating}/5</div>
+          </Card.Header>
+          <Card.Body>
+            <Card.Title>{gym.GymName}</Card.Title>
+            <Card.Text>
+              <div>{gym.GymDesc}</div>
+              <Button variant="primary" onClick={() => handleOnClick(gym)}>
+                Reviews
+              </Button>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      );
+    } else {
+      return (
+        <Card as={Col} className='card'>
+          <Card.Header className='d-flex justify-content-between'>
+            <div>{gym.GymName}</div>
+            <div>Rating: {gym.Rating}/5</div>
+          </Card.Header>
+          <Card.Body>
+            <Card.Title>{gym.GymName}</Card.Title>
+            <Card.Text>
+              <div>{gym.GymDesc}</div>
+              <div>Distance: {gym.Distance.toFixed(2)}km</div>
+              <Button variant="primary" onClick={() => handleOnClick(gym)}>
+                Reviews
+              </Button>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      );
+    }
+  }
+
+  const noResults = () => {
+    if (data[1].length == 0) {
+      return (
+        <Card as={Col} className='card'>
+          <Card.Body>
+            <Card.Title>No results found</Card.Title>
+          </Card.Body>
+        </Card>
+      );
+    }
+  }
+
+  const renderFooter = () => {
+    if (data[1].length <= 1) {
+      return (
+        <div className="Fixed-bottom-search length-1">
+          <FooterNav />
+        </div>
+      );
+    } else {
+      return (
+        <div className="Fixed-bottom-search">
+          <FooterNav />
+        </div>
+      );
+    }
+  }
+
   return (
-    <div className="Hustle Search">
+    <div className="Search">
       <div className="map-div">
         <Map {...mapProps} />
       </div>
-      <Row className="g-0 mb-4" xs={1} md={2}>
-        <Card as={Col} className="card">
-          <Card.Header className="d-flex justify-content-between">
-            <div>Fitness Centre</div>
-            <div>Rating: 4.6/5.0</div>
-          </Card.Header>
-          <Card.Body>
-            <Card.Title>Snap Fitness</Card.Title>
-            <Card.Text>
-              <p>
-                Address: 8130 Sheppard Avenue East Suite 108 and 109 <br />
-                Distance: 10.5km
-              </p>
-              <Button variant="primary" onClick={handleOnClick}>
-                Reviews
-              </Button>
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card as={Col} className="card">
-          <Card.Header className="d-flex justify-content-between">
-            <div>Gym</div>
-            <div>Rating: 3.9/5.0</div>
-          </Card.Header>
-          <Card.Body>
-            <Card.Title>GoodLife Fitness Scarborough Cedarbrae Mall</Card.Title>
-            <Card.Text>
-              <p>
-                Address: 3495 Lawrence Avenue East, Scarborough, ON <br />
-                Distance: 5.2km
-              </p>
-              <Button variant="primary" onClick={handleOnClick}>
-                Reviews
-              </Button>
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card as={Col} className="card">
-          <Card.Header className="d-flex justify-content-between">
-            <div>Fitness Centre</div>
-            <div>Rating: 3.6/5.0</div>
-          </Card.Header>
-          <Card.Body>
-            <Card.Title>World Gym</Card.Title>
-            <Card.Text>
-              <p>
-                1455 McCowan Road, Scarborough, ON <br />
-                Distance: 8.2km
-              </p>
-              <Button variant="primary" onClick={handleOnClick}>
-                Reviews
-              </Button>
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card as={Col} className="card">
-          <Card.Header className="d-flex justify-content-between">
-            <div>Gym</div>
-            <div>Rating: 3.9/5.0</div>
-          </Card.Header>
-          <Card.Body>
-            <Card.Title>Fit4Less</Card.Title>
-            <Card.Text>
-              <p>
-                Address: 3434 Lawrence Avenue East, Scarborough, ON<br />
-                Distance: 2.7km
-              </p>
-              <Button variant="primary" onClick={handleOnClick}>
-                Reviews
-              </Button>
-            </Card.Text>
-          </Card.Body>
-        </Card>
+      <Row className="g-0 mb-4 max-width" xs={1} md={1}>
+        {data[1].map(renderCard)}
+        {noResults()}
       </Row>
-      <div className="Fixed-bottom-search">
-        <FooterNav />
-      </div>
+      {renderFooter()}
     </div>
   );
 }
