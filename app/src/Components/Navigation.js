@@ -14,6 +14,7 @@ function Navigation() {
           <Nav>
             <Nav.Link href="/">Hustle</Nav.Link>
             <Nav.Link href="/contribute">Contribute a Gym</Nav.Link>
+            <Nav.Link href="/review">Add a Review</Nav.Link>
           </Nav>
           <Nav className="right-nav">
             <Nav.Link href="/login">Login</Nav.Link>

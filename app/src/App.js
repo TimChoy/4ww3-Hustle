@@ -4,6 +4,7 @@ import Navigation from './Components/Navigation';
 import Hustle from './Components/Hustle';
 import Search from './Components/Search';
 import Contribute from './Components/Contribute';
+import Review from './Components/Review';
 import Login from './Components/Login';
 import Register from './Components/Register';
 import Item from './Components/Item';
@@ -23,6 +24,7 @@ function App() {
             <Route exact path='/' component={Hustle} />
             <Route path='/search' component={Search} />
             <Route path='/contribute' component={Contribute} />
+            <Route path='/review' component={Review} />
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <Route path='/item' component={Item} />
