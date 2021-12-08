@@ -9,6 +9,7 @@ const reviews = require('./api/reviews');
 const app = express();
 
 require('dotenv').config();
+require('./shared/mysql');
 
 const port = process.env.PORT;
 const hostname = process.env.HOSTNAME;
