@@ -9,7 +9,7 @@ import '../Styles/Search.css';
 function Item({ mapProps }) {
   const { reviews } = useContext(Context);
 
-  if (!data) {
+  if (!reviews) {
     alert('Return to homepage to search again!');
     window.location = '/';
   }
