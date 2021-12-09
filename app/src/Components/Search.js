@@ -46,7 +46,6 @@ function Search({ mapProps }) {
           '<span style="font-weight: bold;">' + loc.name + '</span><div style="line-height: 50%;"><br/></div>' +
           '<span> Latitude: ' + loc.lat + '</span><br/>' +
           '<span> Longitude: ' + loc.lng + '</span><br/>' +
-          '<a href=\'./Item\'> Click here for more information </a>' +
           '</div>';
         marker.addListener('click', () => {
           infowindow.setContent(infoWindowContent);

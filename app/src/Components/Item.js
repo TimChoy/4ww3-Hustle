@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Card, Col, Container, Image, Row } from 'react-bootstrap';
-import gym_item from '../Assets/fit4less.avif';
 import Map from './Map';
 import FooterNav from './Footer';
 import Context from '../context';
@@ -10,6 +9,7 @@ import '../Styles/Search.css';
 function Item({ mapProps }) {
   const { reviews } = useContext(Context);
   console.log(reviews);
+  console.log(reviews[0].ImagePath);
   const locations = [
     { lat: reviews[0].Latitude, lng: reviews[0].Longitude, name: reviews[0].GymName },
   ];
@@ -61,7 +61,7 @@ function Item({ mapProps }) {
   return (
     <div className="Item">
       <div className="d-flex justify-content-center pb-4">
-        <Image src={gym_item} alt="header image" fluid />
+        <Image src={process.env.REACT_APP_SERVER + reviews[0].ImagePath} alt="gym image" fluid />
       </div>
       <Container>
         <Row>

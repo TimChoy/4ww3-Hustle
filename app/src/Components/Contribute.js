@@ -8,6 +8,7 @@ import FooterNav from './Footer';
 import Context from '../context';
 import '../Styles/Contribute.css';
 import '../Styles/Register.css';
+import axios from 'axios';
 
 // Validation schema
 const schema = Yup.object().shape({
@@ -26,28 +27,45 @@ const schema = Yup.object().shape({
 });
 
 function Contribute() {
-  const { credentials } = useContext(Context);
-  console.log(credentials);
-
   const geolocation = useGeolocation();
-  // state variables for form input
-  const [gymInfo, setGymInfo] = useState({
-    gymName: '',
-    description: '',
-    lat: NaN,
-    lng: NaN,
-    file: '',
-  });
 
-  const handleOnSubmit = (input) => {
-    console.log(input);
-    setGymInfo({
+  const postImage = async (image) => {
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*',
+      }
+    }
+    const formData = new FormData();
+    formData.append('image', image);
+    return new Promise((resolve, reject) => {
+      axios.post(process.env.REACT_APP_SERVER + '/images', formData, axiosConfig).then(resp => {
+        resolve(resp.data);
+      }).catch((error) => reject(null));
+    })
+  }
+
+  const handleOnSubmit = async (input) => {
+    let result = await postImage(input.file);
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    };
+    let payload = {
       gymName: input.gymName,
       description: input.description,
       lat: input.lat,
       lng: input.lng,
-      file: input.file,
-    })
+      file: result.imagePath
+    };
+    console.log('Payload:', payload);
+
+    // Upload gym to database
+    axios.post(process.env.REACT_APP_SERVER + '/gyms/add', payload, axiosConfig).then(resp => {
+      console.log(resp.data)
+    }).catch(error => console.log('Bad Request'));
   }
 
   return (
@@ -63,7 +81,7 @@ function Contribute() {
               description: '',
               lat: NaN,
               lng: NaN,
-              file: '',
+              file: null,
             }}
           >
             {({
@@ -140,8 +158,9 @@ function Contribute() {
                   <Form.Control 
                     type="file"
                     name="file"
-                    value={values.file}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      setFieldValue('file', e.currentTarget.files[0], false);
+                    }}
                     isValid={touched.file && !errors.file}
                     isInvalid={!!errors.file}
                   />
