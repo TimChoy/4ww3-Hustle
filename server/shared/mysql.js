@@ -128,7 +128,7 @@ exports.getGyms = async function (lat, lng) {
 exports.addGym = async function (data) {
     let maxID = await __getMaxID('Gyms');
     let sql = `INSERT INTO Gyms VALUES (${maxID + 1}, "${data.gymName}", "${data.description}", ` +
-        `"${data.lat}", "${data.lng}", "${data.path}");`;
+        `"${data.lat}", "${data.lng}", "${data.file}");`;
     const result = await __query(async connection => {
         return new Promise((resolve, reject) => {
             connection.query(sql, (err) => {

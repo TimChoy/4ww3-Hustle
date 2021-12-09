@@ -5,6 +5,7 @@ const parser = require('body-parser');
 const users = require('./api/users');
 const gyms = require('./api/gyms');
 const reviews = require('./api/reviews');
+const images = require('./api/images');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(parser.json());
 app.use(globalRoute + '/users', users);
 app.use(globalRoute + '/gyms', gyms);
 app.use(globalRoute + '/reviews', reviews);
+app.use(globalRoute + '/images', images)
 
 app.listen(port, hostname, function() {
     console.log('HTTP Listening on ' + port);
