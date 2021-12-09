@@ -1,0 +1,13 @@
+.Login {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2em;
+    border-radius: 1em;
+    width: 45%;
+}
+
+@media screen and (orientation: portrait) and (max-width:667px) {
+    .Login {
+      margin-top: 5em;
+      width: auto !important;
+    }
+}

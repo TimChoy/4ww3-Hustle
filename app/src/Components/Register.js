@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import axios from 'axios';
 import { Formik } from 'formik';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import FooterNav from './Footer'
 import '../Styles/Hustle.css';
-import '../Styles/Login.css';
+import '../Styles/Register.css';
 
 // Validation schema for form
 const schema = Yup.object().shape({
@@ -20,39 +21,30 @@ const schema = Yup.object().shape({
   terms: Yup.bool().required().oneOf([true], 'Terms must be accepted'),
 });
 
-function Login() {
-  // state variables for form input
-  const [userInfo, setUserInfo] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  });
-
-  // Show state variable for modal (temporary for assignment 2)
-  const [show, setShow] = useState(false);
+function Register() {
   const history = useHistory();
-
-  const handleShow = () => setShow(true);
-  const handleClose = () => {
-    setShow(false);
-    history.push('/');
-  }
-
   // currently sends data to a modal to display to the user what was entered on the form
   const handleOnSubmit = (input) => {
-    console.log(input);
-    setUserInfo({
-      firstName: input.fname,
-      lastName: input.lname,
-      email: input.email,
-      password: input.password,
-    })
-    handleShow();
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    };
+    // TODO Clean up code in case of problem
+    let payload = input;
+    axios.post(process.env.REACT_APP_SERVER + '/users', payload, axiosConfig).then(resp => {
+      alert('Successfully signed in');
+      history.push('/');
+    }).catch(error => {
+      console.log('Bad Request')
+      alert('Bad request');
+      window.location.reload();
+    });
   }
 
   return (
-    <div className="Login">
+    <div className="Register">
       <div className="Input">
         <h2> Register </h2>
         <Formik
@@ -165,24 +157,8 @@ function Login() {
       <div className="Fixed-bottom">
         <FooterNav />
       </div>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Form Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          First Name: {userInfo.firstName} <br />
-          Last Name: {userInfo.lastName} <br />
-          Email: {userInfo.email} <br />
-          Password: {userInfo.password}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 }
 
-export default Login;
+export default Register;

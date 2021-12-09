@@ -1,4 +1,4 @@
-.Login {
+.Register {
     background-image: url("../Assets/background.avif");
     height: 100vh;
     background-position: center;
@@ -13,7 +13,7 @@
 
 /* Change background image height for landscape */
 @media screen and (orientation: landscape) and (min-device-width: 375px) and (max-device-width: 667px) {
-    .Login {
+    .Register {
         height: 160vh !important;
         justify-content: space-between;
     }

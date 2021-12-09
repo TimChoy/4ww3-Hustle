@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import { BiCurrentLocation } from 'react-icons/bi'
 import useGeolocation from 'react-hook-geolocation';
+import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import FooterNav from './Footer'
+import FooterNav from './Footer';
 import '../Styles/Contribute.css';
-import '../Styles/Login.css';
+import '../Styles/Register.css';
+import axios from 'axios';
 
 // Validation schema
 const schema = Yup.object().shape({
@@ -27,34 +28,49 @@ const schema = Yup.object().shape({
 
 function Contribute() {
   const geolocation = useGeolocation();
-  // state variables for form input
-  const [gymInfo, setGymInfo] = useState({
-    gymName: '',
-    description: '',
-    lat: NaN,
-    lng: NaN,
-    file: '',
-  });
-  // Show state variable for modal (only purpose currently for assignment 2)
-  const [show, setShow] = useState(false);
   const history = useHistory();
 
-  const handleShow = () => setShow(true);
-  const handleClose = () => {
-    setShow(false);
-    history.push('/');
+  const postImage = async (image) => {
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*',
+      }
+    }
+    const formData = new FormData();
+    formData.append('image', image);
+    return new Promise((resolve, reject) => {
+      axios.post(process.env.REACT_APP_SERVER + '/images', formData, axiosConfig).then(resp => {
+        resolve(resp.data);
+      }).catch((error) => reject(null));
+    })
   }
 
-  const handleOnSubmit = (input) => {
-    console.log(input);
-    setGymInfo({
+  const handleOnSubmit = async (input) => {
+    let result = await postImage(input.file);
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    };
+    let payload = {
       gymName: input.gymName,
       description: input.description,
       lat: input.lat,
       lng: input.lng,
-      file: input.file,
-    })
-    handleShow();
+      file: result.imagePath
+    };
+
+    // Upload gym to database
+    axios.post(process.env.REACT_APP_SERVER + '/gyms/add', payload, axiosConfig).then(resp => {
+      alert('Thank you for contributing!');
+      history.push('/');
+    }).catch(error => {
+      console.log('Bad Request');
+      alert('Bad Request');
+      window.location.reload();
+    });
   }
 
   return (
@@ -70,7 +86,7 @@ function Contribute() {
               description: '',
               lat: NaN,
               lng: NaN,
-              file: '',
+              file: null,
             }}
           >
             {({
@@ -147,8 +163,9 @@ function Contribute() {
                   <Form.Control 
                     type="file"
                     name="file"
-                    value={values.file}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      setFieldValue('file', e.currentTarget.files[0], false);
+                    }}
                     isValid={touched.file && !errors.file}
                     isInvalid={!!errors.file}
                   />
@@ -188,23 +205,6 @@ function Contribute() {
       <div className="Fixed-bottom mobile-override">
         <FooterNav />
       </div>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Form Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Gym Name: {gymInfo.gymName} <br />
-          Description: {gymInfo.description} <br />
-          Latitude: {gymInfo.lat} <br />
-          Longitude: {gymInfo.lng} <br />
-          Attachments: {gymInfo.file}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 }

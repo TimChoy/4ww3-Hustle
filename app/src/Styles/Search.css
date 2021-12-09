@@ -1,7 +1,6 @@
 .Search {
     margin-top: 3.5em !important;
     padding-top: 0% !important;
-    height: max-content !important;
 
     display: flex;
     align-items: center;
@@ -23,4 +22,17 @@
 .Fixed-bottom-search {
     position: relative;
     width: 100%;
+}
+
+.max-width {
+    width: 100%;
+    
+}
+
+.length-1 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1080;
 }

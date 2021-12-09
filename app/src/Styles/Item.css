@@ -9,3 +9,7 @@
 h1 {
     text-align: center;
 }
+
+.item-image {
+    height: 50vh !important;
+}
