@@ -10,12 +10,16 @@
     padding-top: 10%;
 }
 
+.Review-form {
+    width: 45%;
+    padding: 2em;
+    border-radius: 1em;
+}
 
 /* Change background image height for landscape */
 
 @media screen and (orientation: landscape) and (min-device-width: 375px) and (max-device-width: 667px) {
     .Review {
-        height: 170vh !important;
         justify-content: space-between;
     }
 }
@@ -23,11 +27,8 @@
 /* Add margin for portrait phones */
 @media screen and (orientation: portrait) and (max-width:667px) {
     .Review-form {
-      margin-top: 2em !important;
-    }
-
-    .mobile-override {
-        position: relative !important;
+        width: auto !important;  
+        margin-top: 5em;
     }
 }
 

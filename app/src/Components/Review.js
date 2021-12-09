@@ -1,49 +1,89 @@
-import React, { useState } from 'react';
-import { Button, Col, Form, Row, Dropdown, DropdownButton } from 'react-bootstrap';
-import { BiCurrentLocation } from 'react-icons/bi'
-import useGeolocation from 'react-hook-geolocation';
+import React, { useState, useEffect, useContext } from 'react';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import FooterNav from './Footer'
-import '../Styles/Review.css';
+import Context from '../context';
+import '../Styles/Login.css';
 import '../Styles/Register.css';
 
 // Validation schema
 const schema = Yup.object().shape({
-  gym: Yup.string().required('Please choose a gym.'),
-  rating: Yup.string().required('Please rate the gym.'),
-  
+  gym: Yup.number().required('Please select a gym')
+    .min(0, 'Please select a gym'),
+  review: Yup.string().required('Please submit a review'),
+  rating: Yup.number().required('Please rate the gym')
+    .typeError('Please rate the gym')
+    .min(0, 'Please rate the gym'),
 });
 
 function Review() {
+  const { credentials } = useContext(Context);
+  const history = useHistory();
   // state variables for form input
-  const [gymInfo, setGymInfo] = useState({
-    gym: '',
-    rating: '',
-    description: '',
-  });
+  const [gymList, setGymList] = useState([]);
+
+  useEffect(() => {
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    };
+    let payload = { lat: null, lng: null };
+    axios.post(process.env.REACT_APP_SERVER + '/gyms', payload, axiosConfig).then(resp => {
+      let gyms = resp.data.map((item) => { return { GymID: item.GymID, GymName: item.GymName } });
+      setGymList(gyms);
+    })
+  }, []);
 
   const handleOnSubmit = (input) => {
-    console.log(input);
-    setGymInfo({
-      gym: input.gym,
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    };
+    let payload = {
+      review: input.review,
       rating: input.rating,
-      comments: input.description,
-    })
+      gymID: input.gym,
+      userID: credentials.userId
+    };
+    axios.post(process.env.REACT_APP_SERVER + '/reviews/add', payload, axiosConfig).then(resp => {
+      alert('Successfully added review');
+      history.push('/');
+    }).catch(error => {
+      console.log('Bad Request');
+      alert('Bad Request');
+      window.location.reload();
+    });
   }
 
-  const geolocation = useGeolocation();
+  const renderGyms = (gymList) => {
+    let renders = [];
+    for (let [key, val] of Object.entries(gymList)) {
+      renders.push(
+        <option key={val.GymID} value={val.GymID}>{val.GymName}</option>
+      )
+    };
+    return renders;
+  }
 
   return (
-    <div className="Review">
-      <div className="Input Review-form">
+    <div className="Register">
+      <div className="Login">
         <div>
           <h2>Add a Review!</h2>
           <Formik
             validationSchema={schema}
             onSubmit={handleOnSubmit}
             initialValues={{
-              comments: '',
+              gym: -1,
+              review: '',
+              rating: -1
             }}
           >
             {({
@@ -51,73 +91,60 @@ function Review() {
               handleChange,
               values,
               touched,
-              errors,
-              setFieldValue,
-              setFieldTouched,
+              errors
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" >
-                  <select
+                <Form.Group className="mb-3" id="selectedGym">
+                  <Form.Select
                     name="gym"
                     value={values.gym}
-                    onChange={handleChange}
                     isValid={touched.gym && !errors.gym}
                     isInvalid={!!errors.gym}
-                    style={{ display: 'block' }}
+                    onChange={handleChange}
                   >
-                    <option value="" label="Select a Gym" />
-                    <option value="Goodlife Fitness" label="Goodlife Fitness" />
-                    <option value="Snap Fitness" label="Snap Fitness" />
-                    <option value="World Gym" label="World Gym" />
-                    <option value="Fit4Less" label="Fit4Less" />
-                  </select>
-                  <Form.Control
-                      value={values.gym}
-                      onChange={handleChange}
-                      isValid={touched.gym && !errors.gym}
-                      isInvalid={!!errors.gym}
-                    />
+                    <option value={-1}>Select a Gym</option>
+                    {renderGyms(gymList)}
+                  </Form.Select>
                   <Form.Control.Feedback type="invalid">
-                      {errors.gym}
+                    {errors.gym}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="gymDesc">
-                  <Form.Label>Comments (Optional)</Form.Label>
+
+                <Form.Group className="mb-4" controlId="review">
+                  <Form.Label>Review</Form.Label>
                   <Form.Control
-                    name="comments"
-                    value={values.comments}
+                    name="review"
+                    value={values.review}
                     onChange={handleChange}
                     as="textarea"
-                    placeholder="Comments" 
+                    isValid={touched.review && !errors.review}
+                    isInvalid={!!errors.review}
+                    placeholder="Enter your review"
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.review}
+                  </Form.Control.Feedback>
                 </Form.Group>
                 <Row className="justify-content-between">
-                <Col className="overrideWidth">
-                <select
-                    name="rating"
-                    value={values.rating}
-                    onChange={handleChange}
-                    isValid={touched.rating && !errors.rating}
-                    isInvalid={!!errors.rating}
-                    style={{ display: 'block' }}
-                  >
-                    <option value="" label="Rating" />
-                    <option value="1" label="1" />
-                    <option value="2" label="2" />
-                    <option value="3" label="3" />
-                    <option value="4" label="4" />
-                    <option value="5" label="5" />
-                  </select>
-                  <Form.Control
+                  <Col sm="auto" className="overrideWidth">
+                    <Form.Select
+                      name="rating"
                       value={values.rating}
                       onChange={handleChange}
                       isValid={touched.rating && !errors.rating}
                       isInvalid={!!errors.rating}
-                    />
-                  <Form.Control.Feedback type="invalid">
+                    >
+                      <option value="-1">Select</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">
                       {errors.rating}
-                  </Form.Control.Feedback>
-                 </Col>
+                    </Form.Control.Feedback>
+                  </Col>
                   <Col sm="auto" className="overrideWidth">
                     <Button
                       variant="primary"
@@ -132,7 +159,7 @@ function Review() {
           </Formik>
         </div>
       </div>
-      <div className="Fixed-bottom mobile-override">
+      <div className="Fixed-bottom">
         <FooterNav />
       </div>
     </div>

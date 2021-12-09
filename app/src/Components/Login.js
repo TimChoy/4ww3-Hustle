@@ -29,10 +29,14 @@ function Login() {
     };
     let payload = input;
     axios.post(process.env.REACT_APP_SERVER + '/users/auth', payload, axiosConfig).then(resp => {
-      console.log(resp.data)
       setCredentials(resp.data);
+      alert('Successfully logged in!');
       history.push('/');
-    }).catch(error => console.log('Unauthorized'));
+    }).catch(error => {
+      console.log('Unauthorized');
+      alert('You have entered an invalid username/password combination.');
+      window.location.reload();
+    });
   }
 
   return (

@@ -4,6 +4,7 @@ const app = express.Router();
 const multer = require('multer');
 const fs = require('fs');
 const util = require('util')
+const sharp = require('sharp');
 const unlinkFile = util.promisify(fs.unlink);
 
 const upload = multer({ dest: 'uploads/'});
@@ -22,8 +23,6 @@ app.get('/:key', function (req, res) {
 
 app.post('/', upload.single('image'), async function (req, res) {
     const file = req.file; 
-    console.log(file);
-    // do error handling
     const result = await uploadFile(file);
     await unlinkFile(file.path);
     console.log(result);

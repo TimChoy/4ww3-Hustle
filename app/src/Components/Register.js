@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { Formik } from 'formik';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import FooterNav from './Footer'
 import '../Styles/Hustle.css';
@@ -21,9 +22,9 @@ const schema = Yup.object().shape({
 });
 
 function Register() {
+  const history = useHistory();
   // currently sends data to a modal to display to the user what was entered on the form
   const handleOnSubmit = (input) => {
-    console.log(input);
     let axiosConfig = {
       headers: {
         'Content-Type': 'application/json',
@@ -33,8 +34,13 @@ function Register() {
     // TODO Clean up code in case of problem
     let payload = input;
     axios.post(process.env.REACT_APP_SERVER + '/users', payload, axiosConfig).then(resp => {
-      console.log(resp.data)
-    }).catch(error => console.log('Bad Request'));
+      alert('Successfully signed in');
+      history.push('/');
+    }).catch(error => {
+      console.log('Bad Request')
+      alert('Bad request');
+      window.location.reload();
+    });
   }
 
   return (

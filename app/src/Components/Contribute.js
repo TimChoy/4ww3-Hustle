@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { BiCurrentLocation } from 'react-icons/bi'
 import useGeolocation from 'react-hook-geolocation';
+import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import FooterNav from './Footer';
-import Context from '../context';
 import '../Styles/Contribute.css';
 import '../Styles/Register.css';
 import axios from 'axios';
@@ -28,6 +28,7 @@ const schema = Yup.object().shape({
 
 function Contribute() {
   const geolocation = useGeolocation();
+  const history = useHistory();
 
   const postImage = async (image) => {
     let axiosConfig = {
@@ -60,12 +61,16 @@ function Contribute() {
       lng: input.lng,
       file: result.imagePath
     };
-    console.log('Payload:', payload);
 
     // Upload gym to database
     axios.post(process.env.REACT_APP_SERVER + '/gyms/add', payload, axiosConfig).then(resp => {
-      console.log(resp.data)
-    }).catch(error => console.log('Bad Request'));
+      alert('Thank you for contributing!');
+      history.push('/');
+    }).catch(error => {
+      console.log('Bad Request');
+      alert('Bad Request');
+      window.location.reload();
+    });
   }
 
   return (

@@ -8,8 +8,12 @@ import '../Styles/Search.css';
 
 function Item({ mapProps }) {
   const { reviews } = useContext(Context);
-  console.log(reviews);
-  console.log(reviews[0].ImagePath);
+
+  if (!data) {
+    alert('Return to homepage to search again!');
+    window.location = '/';
+  }
+
   const locations = [
     { lat: reviews[0].Latitude, lng: reviews[0].Longitude, name: reviews[0].GymName },
   ];
@@ -47,7 +51,7 @@ function Item({ mapProps }) {
   }
 
   const noResults = () => {
-    if (reviews[1].length == 0) {
+    if (reviews[1].length === 0) {
       return (
         <Card border="dark" as={Col} className="mb-3">
         <Card.Body>
@@ -61,7 +65,7 @@ function Item({ mapProps }) {
   return (
     <div className="Item">
       <div className="d-flex justify-content-center pb-4">
-        <Image src={process.env.REACT_APP_SERVER + reviews[0].ImagePath} alt="gym image" fluid />
+        <Image src={process.env.REACT_APP_SERVER + reviews[0].ImagePath} alt="gym image" fluid className="item-image" />
       </div>
       <Container>
         <Row>

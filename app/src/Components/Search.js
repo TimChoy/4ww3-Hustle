@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 import FooterNav from './Footer';
@@ -12,11 +12,15 @@ function Search({ mapProps }) {
   const { setReviews } = useContext(Context);
   const history = useHistory();
 
+  if (!data) {
+    alert('Return to homepage to search again!');
+    window.location = '/';
+  }
+
   let locations = [];
   data[1].forEach(gym => {
     locations.push({ lat: gym.Latitude, lng: gym.Longitude, name: gym.GymName })
   })
-
   // Takes user location if given, or fixed location
   const latitude = (data[0] && data[0].latitude) ? data[0].latitude : 43.777702;
   const longitude = (data[0] && data[0].longitude) ? data[0].longitude : -79.233238;
@@ -83,8 +87,7 @@ function Search({ mapProps }) {
         'Access-Control-Allow-Origin': '*',
       }
     };
-    let payload = {gymID: gym.GymID};
-    console.log(payload);
+    let payload = { gymID: gym.GymID };
     axios.post(process.env.REACT_APP_SERVER + '/reviews', payload, axiosConfig).then(resp => {
       let reviews = resp.data;
       setReviews([gym, reviews]);
@@ -134,7 +137,7 @@ function Search({ mapProps }) {
   }
 
   const noResults = () => {
-    if (data[1].length == 0) {
+    if (data[1].length === 0) {
       return (
         <Card as={Col} className='card'>
           <Card.Body>

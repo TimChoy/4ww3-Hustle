@@ -9,10 +9,10 @@ function Navigation() {
   const { credentials, setCredentials } = useContext(Context);
   const history = useHistory();
   const logout = () => {
+    alert('Successfully logged out. See you next time!');
     setCredentials(null);
   }
 
-  console.log('Logged in:', !!credentials);
   if (!credentials) {
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
